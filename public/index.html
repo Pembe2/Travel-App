@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Planner</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-VzqUM1JVR0CQuH+43b28w4s0iZ5w+hRoxG2+9WO3j1M="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">AI-assisted travel mapper</p>
+        <h1>Plan your next trip</h1>
+        <p class="lede">
+          Generate highlights, view them on a responsive map, and explore every stop with rich detail
+          cards.
+        </p>
+      </div>
+      <div class="badge">Leaflet + OpenAI</div>
+    </header>
+
+    <main class="app-shell">
+      <section class="form-panel" aria-label="Trip planner form">
+        <div id="trip-form"></div>
+        <div id="inline-error" role="alert" aria-live="polite" class="inline-error"></div>
+      </section>
+
+      <section class="map-panel" aria-label="Map and results">
+        <div class="map-meta">
+          <div>
+            <p class="subtitle">Planned stops</p>
+            <h2 id="destination-title">Awaiting a destination</h2>
+            <p id="best-time" class="muted"></p>
+          </div>
+          <div class="legend" aria-label="POI categories legend">
+            <span class="legend-item"><span class="dot culture"></span>Culture</span>
+            <span class="legend-item"><span class="dot nature"></span>Nature</span>
+            <span class="legend-item"><span class="dot food"></span>Food</span>
+            <span class="legend-item"><span class="dot stay"></span>Stay</span>
+            <span class="legend-item"><span class="dot activity"></span>Activity</span>
+          </div>
+        </div>
+        <div id="map" class="map-view" role="application" aria-label="Trip map"></div>
+        <div id="fallback" class="fallback-message" role="status" aria-live="polite"></div>
+        <div id="detail-card" class="detail-card" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-o9N1j7kGStnLkBpBB7E+wHf6Hgu7Wv7zfSpG1HOGmQ0="
+      crossorigin=""
+    ></script>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
