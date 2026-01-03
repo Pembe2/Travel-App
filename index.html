@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Travel Planner (Map Pins + ChatGPT Research)</title>
+
+  <!-- Mapbox GL JS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="panel" id="panel">
+      <div class="panel__header">
+        <h1>Travel Planner</h1>
+        <p class="muted">Generate map pins from trip preferences. Hover pins for highlights.</p>
+      </div>
+
+      <form class="form" id="tripForm">
+        <label class="field">
+          <span>Destination</span>
+          <input id="destination" type="text" placeholder="e.g., Lisbon, Portugal" required />
+        </label>
+
+        <div class="row">
+          <label class="field">
+            <span>Interests (comma-separated)</span>
+            <input id="interests" type="text" placeholder="food, culture, views" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Ask (what should it research?)</span>
+          <textarea id="ask" rows="4" placeholder="e.g., Find 15 must-see places and neighborhoods worth pinning."></textarea>
+        </label>
+
+        <div class="row row--tight">
+          <label class="field field--small">
+            <span>Max pins</span>
+            <input id="maxPlaces" type="number" min="5" max="25" value="15" />
+          </label>
+
+          <button class="btn" type="submit" id="generateBtn">
+            Generate Pins
+          </button>
+        </div>
+
+        <div class="note">
+          <strong>Note:</strong> This uses a backend endpoint to call the LLM and geocode results. Your browser never sees your OpenAI key.
+        </div>
+      </form>
+
+      <div class="results">
+        <div class="results__header">
+          <h2>Places</h2>
+          <div class="muted" id="status"></div>
+        </div>
+        <div class="results__list" id="placesList">
+          <div class="placeholder muted">No results yet. Generate pins to populate the map.</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="mapWrap">
+      <div id="map" class="map"></div>
+
+      <section class="detail" id="detail" aria-hidden="true">
+        <div class="detail__header">
+          <div>
+            <div class="detail__title" id="detailTitle">Place</div>
+            <div class="detail__meta" id="detailMeta"></div>
+          </div>
+          <button class="iconBtn" id="closeDetail" title="Close">✕</button>
+        </div>
+
+        <div class="detail__body">
+          <div class="detail__section">
+            <div class="label">Why go</div>
+            <div id="detailWhy" class="text"></div>
+          </div>
+
+          <div class="detail__section">
+            <div class="label">Highlights</div>
+            <ul id="detailHighlights" class="bullets"></ul>
+          </div>
+
+          <div class="detail__section">
+            <div class="label">Tips</div>
+            <div id="detailTips" class="text muted"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Quick-start: set your public Mapbox token here (safe to expose) -->
+  <!-- <script>window.__MAPBOX_TOKEN__ = "YOUR_PUBLIC_MAPBOX_TOKEN";</script> -->
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
